@@ -1,20 +1,36 @@
 package com.educandoweb.course.resource;
 
 import com.educandoweb.course.entities.User;
+import com.educandoweb.course.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController // para fala que essa classe é um recurso web, implementado por um controlador rest
 @RequestMapping (value = "/users") // nome para o recurso
 public class UserResource {
 
+    @Autowired // dependencia com o SERVICE
+    private UserService service;
+
     @GetMapping
-    public ResponseEntity <User> findAllc(){  //<User> O tipo da minha resposta, vai ser minha classe "User"
-        User u =  new User(1L,"Maria","maria@gmail.com" ,"9999999", "12345"); //importa a classe
-        return ResponseEntity.ok().body(u); // ResponseEntity.ok retorna a resposta com sucesso no HTTP
-    }                                       //body(u) corpo da resposta, que foi instanciado a classe "User" / "u"
+    public ResponseEntity <List<User>> findAll (){
+        List <User> list = service.findAll();
+        return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping (value = "/{id}")    //aceitar um id dentro da URL
+    public ResponseEntity <User> findById (@PathVariable Long id){   //para o spring aceitar o Id e consideralo como parametro, que vai chegar da URL
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj);  //ResponseEntity.ok - indica que teve sucesso
+                                              //body - Corpo da requisição
+
+    }
 
 
 }
