@@ -1,5 +1,6 @@
 package com.educandoweb.course.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -16,11 +17,12 @@ public class Order implements Serializable {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
+    @JsonFormat (shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd 'T' HH:mm:ss 'Z'",timezone = "GMY")
     private Instant moment;
 
     @ManyToOne //Para instruir o JPA para transforma isso em UMA CHAVA ESTRANGEIRA (implementar o relacionamento entre ORDER  e USER
     @JoinColumn (name = "client_id")
-    private User client;
+    private User client;  //associação com a classe USER
 
     public Order (){
 
