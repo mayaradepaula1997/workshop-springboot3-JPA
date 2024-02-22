@@ -1,5 +1,6 @@
 package com.educandoweb.course.entities;
 
+import com.educandoweb.course.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
@@ -20,6 +21,8 @@ public class Order implements Serializable {
     @JsonFormat (shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd 'T' HH:mm:ss 'Z'",timezone = "GMY")
     private Instant moment;
 
+    private Integer orderStatus;
+
     @ManyToOne //Para instruir o JPA para transforma isso em UMA CHAVA ESTRANGEIRA (implementar o relacionamento entre ORDER  e USER
     @JoinColumn (name = "client_id")
     private User client;  //associação com a classe USER
@@ -27,9 +30,11 @@ public class Order implements Serializable {
     public Order (){
 
     }
-    public Order(Long id, Instant moment, User client) {
+    public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
         this.id = id;
         this.moment = moment;
+        setOrderStatus(orderStatus);
+
         this.client = client;
     }
 
@@ -47,6 +52,16 @@ public class Order implements Serializable {
 
     public void setMoment(Instant moment) {
         this.moment = moment;
+    }
+    public  OrderStatus getOrderStatus (){
+        return OrderStatus.valueOf(orderStatus); // ESTOU PEGANDO O NUMERO INTERNO DA CLASSE E CONVERTENDO ELE PARA "ORDERSTATUS"
+    }
+
+    //PEGAR O NUMERO CORRESPONDENTE AO "orderSTATUS / ENUM"
+    public void setOrderStatus (OrderStatus orderStatus){
+        if (orderStatus != null){
+            this.orderStatus = orderStatus.getCode();
+        }
     }
 
     public User getClient() {
