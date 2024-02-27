@@ -20,7 +20,8 @@ public class Product implements Serializable {
    private Double price;
    private String imgUrl;
 
-   @Transient //Impede que o JPA tente interpletar
+   @ManyToMany  //"tb_product_category":nome da tabela ,@JoinColumn: anotação JPA, "product_id": nome da chave estrangeira do Product, inverseJoinColumns: definir a chave estrangeira da outra entidade, "category_id": nome da chave estrangeira da categoria
+   @JoinTable (name = "tb_product_category", joinColumns = @JoinColumn (name = "product_id") , inverseJoinColumns = @JoinColumn (name = "category_id"))
    private Set<Category> categories = new HashSet<>();
 
    public Product(){
