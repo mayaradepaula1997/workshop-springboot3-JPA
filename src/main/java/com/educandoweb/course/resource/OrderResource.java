@@ -26,7 +26,7 @@ public class OrderResource {
         return ResponseEntity.ok().body(list);
     }
 
-    @GetMapping (value = "/{id}")    //aceitar um id dentro da URL
+    @GetMapping(value = "/{id}")    //aceitar um id dentro da URL
     public ResponseEntity <Order> findById (@PathVariable Long id){   //para o spring aceitar o Id e consideralo como parametro, que vai chegar da URL
         Order obj = service.findById(id);
         return ResponseEntity.ok().body(obj);  //ResponseEntity.ok - indica que teve sucesso

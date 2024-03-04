@@ -8,12 +8,12 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table (name = "tb_product")
+@Table(name = "tb_product")
 public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
 
    @Id
-   @GeneratedValue (strategy = GenerationType.IDENTITY)
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
    private String name;
    private String description;
@@ -21,7 +21,7 @@ public class Product implements Serializable {
    private String imgUrl;
 
    @ManyToMany  //"tb_product_category":nome da tabela ,@JoinColumn: anotação JPA, "product_id": nome da chave estrangeira do Product, inverseJoinColumns: definir a chave estrangeira da outra entidade, "category_id": nome da chave estrangeira da categoria
-   @JoinTable (name = "tb_product_category", joinColumns = @JoinColumn (name = "product_id") , inverseJoinColumns = @JoinColumn (name = "category_id"))
+   @JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id") , inverseJoinColumns = @JoinColumn(name = "category_id"))
    private Set<Category> categories = new HashSet<>();
 
    public Product(){
@@ -30,6 +30,7 @@ public class Product implements Serializable {
 
    //Não se cloca "coleçoes" no construtor, porque ele ja está sendo instanciado
     public Product(Long id, String name, String description, Double price, String imgUrl) {
+        super();
         this.id = id;
         this.name = name;
         this.description = description;

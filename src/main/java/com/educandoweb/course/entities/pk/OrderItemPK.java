@@ -18,11 +18,11 @@ public class OrderItemPK implements Serializable {
 
 
     @ManyToOne
-    @JoinColumn (name = "order_id") //nome da chave estrangeira
+    @JoinColumn(name = "order_id") //nome da chave estrangeira
     private Order order;  //referencia ao pedido/order
 
     @ManyToOne
-    @JoinColumn (name = "product_id") //nome da chave estrangeira
+    @JoinColumn(name = "product_id") //nome da chave estrangeira
     private Product product;  // referencia ao produto/product
 
     public Order getOrder() {
