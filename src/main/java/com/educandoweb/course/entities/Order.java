@@ -91,6 +91,15 @@ public class Order implements Serializable {
         return items;
     }
 
+    public Double getTotal(){
+        double soma = 0.0;
+        for (OrderItem x : items){
+            soma = soma + x.getSubTotal();
+        }
+        return soma;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
