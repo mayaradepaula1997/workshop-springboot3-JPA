@@ -28,4 +28,15 @@ public class UserService {
     public void delete (Long id){
         repository.deleteById(id); //deletar o usuario que tiver esse id
     }
+    public User update (Long id, User obj){   //User: retorna o usuario atualizado
+        User entity = repository.getReferenceById(id);   //repository.getReferenceById instancia o usuario, sendo que não vai no banco de dados
+        updateData (entity, obj);   //pegar esse objeto "entity" atualizar e atualizar o objeto "obj" com os dados que vieram do "(User obj)"
+        return repository.save(entity);
+    }
+
+    private void updateData(User entity, User obj) { //implementar o "updateData", atualizar os dados do "entity" com base no que chegou no "obj"
+        entity.setName(obj.getName());
+        entity.setEmail(obj.getEmail());
+        entity.setPhone(obj.getPhone());
+    }
 }
