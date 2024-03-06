@@ -36,6 +36,11 @@ public class UserResource {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).body(obj);
     }
+    @DeleteMapping (value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){ //@PathVariable conhecer como uma variavel da URL
+        service.delete(id); //deletei
+        return ResponseEntity.noContent().build(); //noContent() retorna uma resposta vazia e o cogido HTTP 204
+    }
 
 
 }
